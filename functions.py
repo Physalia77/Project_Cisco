@@ -14,10 +14,6 @@ def is_valid_ip(ip):
         return False
 
 
-def calculate_ip_binary(ip_spl):
-    return '.'.join([bin(int(x) + 256)[3:] for x in ip_spl.split('.')])
-
-
 def calculate_subnet_mask(sm):
     return ".".join(sm[i:i + 8] for i in range(0, len(sm), 8))
 
