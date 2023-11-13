@@ -1,6 +1,7 @@
 def calculate_ip_binary(ip_parts):
     return '.'.join([bin(int(x) + 256)[3:] for x in ip_parts.split('.')])
 
+
 def is_valid_ip(ip):
     try:
         octets = ip.split('.')
@@ -24,9 +25,6 @@ def calculate_subnet_id(ip_binary, mask_binary):
     # Convert the binary subnet ID back to dotted-decimal format
     subnet_id = '.'.join([str(int(subnet_id_binary[i:i + 8], 2)) for i in range(0, len(subnet_id_binary), 8)])
     return subnet_id
-
-
-"""BUG ONLY WORKS FOR CLASS C"""
 
 
 def calculate_broadcast_ip(ip_binary, mask_binary):
@@ -102,18 +100,24 @@ def calculate_last_available_ip(ip_binary, mask_binary):
 # Class B Private IP Range: 172.16.0.0 – 172.31.255.255
 #
 # Class C Private IP Range: 192.168.0.0 – 192.168.255.25
+# Constants for IP ranges
+CLASS_A_PRIVATE_IP_RANGE = (10, 10, 255, 255)
+CLASS_B_PRIVATE_IP_RANGE = (172, 16, 172, 31)
+CLASS_C_PRIVATE_IP_RANGE = (192, 168, 192, 168)
 
-def calculate_ip_private(ip_spl):
+
+def is_ip_private(ip_spl):
     ip_spl = ip_spl.split(".")
     ip_spl = list(map(int, ip_spl))
-    if ip_spl[0] == 10:
-        print("Private IP")
-    elif ip_spl[0] == 172 and 16 <= ip_spl[1] <= 31:
-        print("Private IP")
-    elif ip_spl[0] == 192 and ip_spl[1] == 168:
-        print("Private IP")
+    if ip_spl[0] == CLASS_A_PRIVATE_IP_RANGE[0]:
+        return "Private IP"
+    elif ip_spl[0] == CLASS_B_PRIVATE_IP_RANGE[0] and CLASS_B_PRIVATE_IP_RANGE[1] <= ip_spl[1] <= \
+            CLASS_B_PRIVATE_IP_RANGE[2]:
+        return "Private IP"
+    elif ip_spl[0] == CLASS_C_PRIVATE_IP_RANGE[0] and ip_spl[1] == CLASS_C_PRIVATE_IP_RANGE[1]:
+        return "Private IP"
     else:
-        print("Public IP")
+        return "Public IP"
 
 
 def calculate_ip_class(ip_spl):
