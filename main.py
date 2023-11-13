@@ -52,10 +52,10 @@ def calculate_subnet_info():
         print(f"Number of Usable Hosts: {(int(num_hosts - 2))}")
         print("\nSubnet ID:", subnet_id, f"\nBroadcast IP: {broadcast_ip_dec}")
         print(f"IP range: {first_available_ip_decimal} - {last_available_ip_decimal}\n")
+        print(is_ip_private(ip_spl))
 
         # Calculate and display IP class and whether it's private or public
         calculate_ip_class(ip_spl)
-        calculate_ip_private(ip_spl)
 
         # Ask the user if they want to perform another subnet calculation
         another_calculation = input("\nDo you want to perform another subnet calculation? (yes/no): ").lower()
